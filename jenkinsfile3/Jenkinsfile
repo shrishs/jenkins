@@ -7,5 +7,5 @@ openshiftScale(namespace: 'development', deploymentConfig: 'eap-app',replicaCoun
 stage 'deployInTesting'
 openshiftTag(namespace: 'development', sourceStream: 'eap-app',  sourceTag: 'latest', destinationStream: 'eap-app', destinationTag: 'promoteToQA')
 openshiftDeploy(namespace: 'testing', deploymentConfig: 'eap-app', )
-openshiftScale(namespace: 'testing', deploymentConfig: 'eap-app',replicaCount: '2')
+openshiftScale(namespace: 'testing', deploymentConfig: 'eap-app',replicaCount: '1')
 }
