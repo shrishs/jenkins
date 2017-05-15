@@ -2,8 +2,8 @@ node('maven') {
 stage 'buildInDevelopment'
 openshiftBuild(namespace: 'development',buildConfig: 'eap-app', showBuildLogs: 'true')
 stage 'deployInDevelopment'
-##openshiftDeploy(namespace: 'development', deploymentConfig: 'eap-app')
-##openshiftScale(namespace: 'development', deploymentConfig: 'eap-app',replicaCount: '2')
+#openshiftDeploy(namespace: 'development', deploymentConfig: 'eap-app')
+#openshiftScale(namespace: 'development', deploymentConfig: 'eap-app',replicaCount: '2')
 stage 'deployInTesting'
 openshiftTag(namespace: 'development', sourceStream: 'eap-app',  sourceTag: 'latest', destinationStream: 'eap-app', destinationTag: 'promoteToQA')
 openshiftDeploy(namespace: 'testing', deploymentConfig: 'eap-app', )
