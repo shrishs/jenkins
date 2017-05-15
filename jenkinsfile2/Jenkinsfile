@@ -1,0 +1,6 @@
+node('maven') {
+stage 'buildInDevelopment'
+openshiftBuild(namespace: 'development',buildConfig: 'eap-app', showBuildLogs: 'true')
+stage 'deployInDevelopment'
+stage 'deployInTesting'
+}
