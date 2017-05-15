@@ -5,6 +5,7 @@ stage 'deployInDevelopment'
 openshiftDeploy(namespace: 'development', deploymentConfig: 'eap-app')
 openshiftScale(namespace: 'development', deploymentConfig: 'eap-app',replicaCount: '1')
 stage 'deployInTesting'
+input message: "Promote to STAGE?", ok: "Promote"
 openshiftTag(namespace: 'development', sourceStream: 'eap-app',  sourceTag: 'latest', destinationStream: 'eap-app', destinationTag: 'promoteToQA')
 openshiftDeploy(namespace: 'testing', deploymentConfig: 'eap-app', )
 openshiftScale(namespace: 'testing', deploymentConfig: 'eap-app',replicaCount: '1')
