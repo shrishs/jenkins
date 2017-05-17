@@ -1,4 +1,6 @@
-# jenkins
+
+http://github.com/shrishs/jenkins
+
 Step1 :Adding Basic pipeline
 
 --Create a Jenkinsfile with the following content
@@ -54,6 +56,7 @@ stage 'deployInDevelopment'
 openshiftDeploy(namespace: 'development', deploymentConfig: 'eap-app')
 openshiftScale(namespace: 'development', deploymentConfig: 'eap-app',replicaCount: '1')
 stage 'deployInTesting'
+   input message: "Promote to STAGE?", ok: "Promote"
 openshiftTag(namespace: 'development', sourceStream: 'eap-app',  sourceTag: 'latest', destinationStream: 'eap-app', destinationTag: 'promoteToQA')
 openshiftDeploy(namespace: 'testing', deploymentConfig: 'eap-app', )
 openshiftScale(namespace: 'testing', deploymentConfig: 'eap-app',replicaCount: '2')
@@ -62,6 +65,9 @@ openshiftScale(namespace: 'testing', deploymentConfig: 'eap-app',replicaCount: '
 
 --Create the deployment config in testing project.
 oc create deploymentconfig eap-app --image=172.30.90.23:5000/development/eap-app:promoteToQA
+To update the imagePullPomicy to Always instead of IfNotPresent
+oc patch dc/eap-app -p '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}'
+
 --Create the service in testing project.
 oc expose dc eap-app --port=8080
 --Create the route in testing project.
