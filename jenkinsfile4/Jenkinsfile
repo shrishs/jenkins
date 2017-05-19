@@ -11,6 +11,23 @@ sh "${mvnCmd} -e -Popenshift clean install -DskipTests=true"
 stage ('Push to Nexus') {
 sh "${mvnCmd} -e -Popenshift deploy -DskipTests=true"
 }  
-stage 'deployInDevelopment'
+  
+stage ('deployInDevelopment')
+{
+sh "rm -rf oc-build && mkdir -p oc-build/deployments"
+sh "cp target/ROOT.war oc-build/deployments/jeesample.war"
+sh "oc project ${DEV_PROJECT}"
+// clean up. keep the image stream
+sh "oc delete bc,dc,svc,route -l app=binwar -n ${DEV_PROJECT}"
+// create build. override the exit code since it complains about exising imagestream
+sh "oc new-build --name=binbuild --image-stream=openshift/jboss-eap70-openshift --binary=true --labels=app=binwar -n ${DEV_PROJECT} || true"
+// build image
+sh "oc start-build binbuild --from-dir=oc-build --wait=true -n ${DEV_PROJECT}"
+// deploy image
+sh "oc new-app binbuild:latest -n ${DEV_PROJECT}"
+sh "oc expose svc/binbuild -n ${DEV_PROJECT}"
+}
+  
 stage 'deployInTesting'
+  
 }
