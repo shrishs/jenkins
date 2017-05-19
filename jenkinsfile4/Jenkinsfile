@@ -15,7 +15,7 @@ sh "${mvnCmd} -e -Popenshift deploy -DskipTests=true"
 stage ('deployInDevelopment')
 {
 sh "rm -rf oc-build && mkdir -p oc-build/deployments"
-sh "cp target/ROOT.war oc-build/deployments/jeesample.war"
+sh "cp target/ROOT.war oc-build/deployments/ROOT.war"
 sh "oc project development"
 // clean up. keep the image stream
 sh "oc delete bc,dc,svc,route -l app=binwar -n development"
