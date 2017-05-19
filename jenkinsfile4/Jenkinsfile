@@ -1,0 +1,8 @@
+node('maven') {
+stage 'buildInDevelopment'
+def mvnCmd = "mvn"
+git branch: 'master', url: 'http://mygos.app.sandbox.com/openshift/jeesample.git'
+sh "${mvnCmd} clean install -DskipTests=true"
+stage 'deployInDevelopment'
+stage 'deployInTesting'
+}
