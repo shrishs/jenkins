@@ -1,8 +1,10 @@
 node('maven') {
-stage ('buildInDevelopment')
-{  
+  
 def mvnCmd = "mvn -s configuration/cicd-settings.xml"
 sh "${mvnCmd} -v"
+  
+stage ('buildInDevelopment')
+{  
 git branch: 'binary', url: 'https://github.com/shrishs/openshift-jee-sample.git'
 sh "${mvnCmd} -e -Popenshift clean install -DskipTests=true"
 }  
