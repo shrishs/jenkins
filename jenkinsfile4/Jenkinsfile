@@ -18,7 +18,7 @@ sh "rm -rf oc-build && mkdir -p oc-build/deployments"
 sh "cp target/ROOT.war oc-build/deployments/ROOT.war"
 sh "oc project development"
 // clean up. keep the image stream
-sh "oc delete bc,dc,svc,route -l app=binwar -n development"
+sh "oc delete bc,dc,svc,route -l app=binwar --wait=true -n development"
 // create build. override the exit code since it complains about exising imagestream
 sh "oc new-build --name=binbuild --image-stream=openshift/jboss-eap70-openshift --binary=true --labels=app=binwar -n development || true"
 // build image
