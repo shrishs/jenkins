@@ -9,7 +9,7 @@ git branch: 'binary', url: 'https://github.com/shrishs/openshift-jee-sample.git'
 sh "${mvnCmd} -e -Popenshift clean install -DskipTests=true"
 }  
 stage ('Push to Nexus') {
-sh "${mvnCmd} deploy -DskipTests=true"
+sh "${mvnCmd} -e -Popenshift deploy -DskipTests=true"
 }  
 stage 'deployInDevelopment'
 stage 'deployInTesting'
