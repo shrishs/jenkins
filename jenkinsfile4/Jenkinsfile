@@ -3,7 +3,7 @@ stage 'buildInDevelopment'
 def mvnCmd = "mvn"
 sh "${mvnCmd} -v"
 git branch: 'master', url: 'http://mygos.app.sandbox.com/openshift/jeesample.git'
-sh "${mvnCmd} mvn -e -Popenshift clean install -DskipTests=true"
+sh "${mvnCmd} -e -Popenshift clean install -DskipTests=true"
 stage 'deployInDevelopment'
 stage 'deployInTesting'
 }
