@@ -5,7 +5,7 @@ sh "${mvnCmd} -v"
   
 stage ('buildInDevelopment')
 {  
-git branch: 'binary', url: 'http://mygos.app.sandbox.com/openshift/jeesamplebin.git'
+git branch: 'binary', url: 'http://gogs.gitlab.svc.cluster.local:3000/openshift/jeesamplebin.git'
 sh "${mvnCmd} -e -Popenshift clean install -DskipTests=true"
 }  
 stage ('Push to Nexus') {
