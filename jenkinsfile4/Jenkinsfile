@@ -5,7 +5,7 @@ sh "${mvnCmd} -v"
   
 stage ('buildInDevelopment')
 {  
-git branch: 'binary', url: 'https://github.com/shrishs/openshift-jee-sample.git'
+git branch: 'binary', url: 'http://mygos.app.sandbox.com/openshift/jeesamplebin.git'
 sh "${mvnCmd} -e -Popenshift clean install -DskipTests=true"
 }  
 stage ('Push to Nexus') {
