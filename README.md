@@ -21,6 +21,9 @@ oc new-build https://github.com/shrishs/jenkins --context-dir=jenkinsfile1 --nam
 ---Log in using openshift credential
 ---Check Jenkins service account
 
+Above command can also be run by providing jenkinsfile content inside the buildconfig and creating the buildconfig object as follows.
+oc create -f jenkinsbc.yaml
+
 ---Create a development Project
 
 oc new-project development
