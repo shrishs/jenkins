@@ -17,6 +17,7 @@ stage 'deployInTesting'
 oc new-project cicd
 
 oc new-build https://github.com/shrishs/jenkins --context-dir=jenkinsfile1 --name=sample-pipeline --strategy=pipeline
+
 ---Check the jenkins instance.
 ---Log in using openshift credential
 ---Check Jenkins service account
