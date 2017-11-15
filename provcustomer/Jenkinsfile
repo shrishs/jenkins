@@ -1,4 +1,4 @@
-node('maven') {
-sh 'oc new-project testjenkins'
+node {
+oc new-project testjenkins
 }
 
