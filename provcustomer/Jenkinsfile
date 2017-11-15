@@ -1,4 +1,4 @@
 node {
-oc new-project testjenkins
+sh 'oc new-project testjenkins'
 }
 
