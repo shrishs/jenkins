@@ -1,0 +1,4 @@
+node('maven') {
+oc new-project testjenkins
+}
+
