@@ -1,4 +1,5 @@
 node {
 sh 'oc get project'
+sh 'oc new-project testjenkins'
 }
 
