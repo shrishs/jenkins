@@ -11,7 +11,7 @@ stage 'deployInDevelopment'
 stage 'deployInTesting'
 }
 
-
+**Instead node('maven') ,one can also use node {} as we are not going to use any maven specific activities.
 ---Configure CICD Project
 
 oc new-project cicd
@@ -32,6 +32,7 @@ oc new-project development
 
 oc new-app eap70-basic-s2i -e SOURCE_REPOSITORY_URL=https://github.com/jboss-developer/jboss-eap-quickstarts -e CONTEXT_DIR=kitchensink
 
+**Instead one can create project ui
 
 --Call the build config create in development project in cicd pipeline
 
@@ -81,6 +82,17 @@ oc create deploymentconfig eap-app --image=172.30.90.23:5000/development/eap-app
 To update the imagePullPomicy to Always instead of IfNotPresent
 
 oc patch dc/eap-app -p '{"spec":{"template":{"spec":{"containers":[{"name":"default-container","imagePullPolicy":"Always"}]}}}}'
+
+
+**Instead of doing above two step ,One can copy the dc from development
+oc export dc -n development -o yaml >java-appdc.yaml
+Change the below line
+- image: xx.xxx.xx.xxx:5000/development/java-app@sha256:e3e310f3b27251fa164d20f1a81cb3ca9a4d6e20146ddfa117f4174f964b4f8d
+to
+- image: xx.xxx.xx.xxx:5000/development/java-app:promoteToQA
+oc create -f java-appdc.yaml -n testing
+
+
 
 --Create the service in testing project.
 oc expose dc eap-app --port=8080
