@@ -87,7 +87,9 @@ oc patch dc/eap-app -p '{"spec":{"template":{"spec":{"containers":[{"name":"defa
 **Instead of doing above two step ,One can copy the dc from development
 
 oc export dc -n development -o yaml >java-appdc.yaml
-Change the below line
+
+Change the below line in java-appdc.yaml
+
 - image: xx.xxx.xx.xxx:5000/development/java-app@sha256:e3e310f3b27251fa164d20f1a81cb3ca9a4d6e20146ddfa117f4174f964b4f8d
 to
 - image: xx.xxx.xx.xxx:5000/development/java-app:promoteToQA
