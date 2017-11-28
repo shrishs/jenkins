@@ -12,6 +12,7 @@ stage 'deployInTesting'
 }
 
 **Instead node('maven') ,one can also use node {} as we are not going to use any maven specific activities.
+
 ---Configure CICD Project
 
 oc new-project cicd
